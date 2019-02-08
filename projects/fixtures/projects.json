@@ -1,0 +1,22 @@
+[
+    {
+        "model": "projects.posts",
+        "pk": 2,
+        "fields": {
+            "post_title": "Second post yeah",
+            "post_content": "These are my posts",
+            "created_at": "2018-12-15 00:00:00",
+            "updated_at": "2018-12-15 00:00:00"
+        }
+    },
+    {
+        "model": "projects.posts",
+        "pk": 3,
+        "fields": {
+            "post_title": "Third thing posted",
+            "post_content": "Third thing posted yoh",
+            "created_at": "2018-12-15 00:00:00",
+            "updated_at": "2018-12-15 00:00:00"
+        }
+    }
+]
