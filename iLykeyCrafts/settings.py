@@ -26,7 +26,9 @@ SECRET_KEY = '3et@+cy8des_ikxru6#zlzg)^l+l7q@x(4bmz54dv_26$+#%8w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '192.168.0.18', '127.0.0.1', '192.168.11.18']
+# ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.4',
+#                 '127.0.0.1', '192.168.11.18', 'localhost', ]
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
@@ -39,20 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'projects',
-    'corsheaders', # may not need for oauth2
-    'rest_framework', #enable rest framework
-    'rest_framework.authtoken', #enable token authentication for REST
+    'corsheaders',  # may not need for oauth2
+    'rest_framework',  # enable rest framework
+    'rest_framework.authtoken',  # enable token authentication for REST
     'users',
     'oauth2_provider',
     'social_django',
-    'rest_framework_social_oauth2', # may cause reverse authorization issue
-    #'rest_framework.authtoken', #for loggin in via REST API
-    #'rest_auth', #for logging in via RESt API
+    'rest_framework_social_oauth2',  # may cause reverse authorization issue
+    # 'rest_framework.authtoken', #for loggin in via REST API
+    # 'rest_auth', #for logging in via RESt API
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', # for CORS
-    'django.middleware.common.CommonMiddleware', # for CORS
+    'corsheaders.middleware.CorsMiddleware',  # for CORS
+    'django.middleware.common.CommonMiddleware',  # for CORS
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,12 +90,12 @@ WSGI_APPLICATION = 'iLykeyCrafts.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
-#}
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -101,19 +103,19 @@ DATABASES = {
         'USER': 'errichardson',
         'PASSWORD': 'ellyrichardson',
         'HOST': '127.0.0.1',
-        'PORT':'3307'
+        'PORT': '3308'
     }
 }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-    #    'rest_framework.permissions.AllowAny',
+        #    'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),

@@ -9,48 +9,59 @@ from .models import Posts
 #UserModel = get_user_model()
 
 # serializer for posts to be taken
+
+
 class PostsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
-        fields = ('id','post_title','post_content',)
+        fields = ('id', 'post_title', 'post_content',)
 
     def create(self, validated_data):
         posts = Posts.objects.create(
             post_title=validated_data['post_title'],
             post_content=validated_data['post_content'],
             # gets the id of the current user
-            post_user=self.context['request'].user.id, 
+            post_user=self.context['request'].user.id,
         )
 
         posts.save()
         return posts
 
-# Serializer for user info for the registration API
-class UserSerializer(serializers.ModelSerializer):
 
+class SearchResultsSerializer(serializers.ModelSerializer):
+    # Serializer for search results
     class Meta:
-        model = User # for the User model, use get_user_model for custom
-        fields = ('id', 'username', 'password', 'email', 'first_name', 'last_name',)
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'id', 'email',)
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    # Serializer for user info to get for profiles
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'id',)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    # Serializer for user info for the registration API
+    class Meta:
+        model = User  # for the User model, use get_user_model for custom
+        fields = ('username', 'password',
+                  'email', 'first_name', 'last_name',)
         extra_kwargs = {'password': {'write_only': True}}
         read_only_fields = ('id',)
 
     # override create method
     def create(self, validated_data):
-        if validated_data['client_id'] != "OI430uPmYGKUJ6h2C7Ohjdn2C9i3WONVMi7WQvu0" and validated_data['client_secret'] != "X8KJNUjIeXf7I8jIbzjt4k92rs6OPxSUqKv9IeaP6YRpLsK8YZVDLK8RcFDqacH4hKSzkuuZET42VyMkIltQt8mUwi16DCGwFWX3fJf7ZxcDMKA6wOQKJnX1GKh9bQ7a":
-            raise serializers.ValidationError("Not allowed to do this MATE!")
 
         user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name']
-            )
+        )
 
         user.set_password(validated_data['password'])
         user.save()
 
         return user
-        
-
-
-
